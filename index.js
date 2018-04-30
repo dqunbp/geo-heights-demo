@@ -13,9 +13,6 @@ const fs = require('fs');
 var rawdata = fs.readFileSync('./data/mytishi.geojson', 'utf8');
 var mytishi = JSON.parse(rawdata);
 
-var intersections = polygonsWithInPolygon(mytishi, searchWithin);
-console.log(intersections);
-
 osmb.set(
     featuresListToCollection(mytishi)
 );
@@ -31,7 +28,3 @@ osmb.click(function (e) {
       .setContent(content)
       .openOn(map);
 });
-
-console.log(
-    findFeatureById(mytishi, 1)
-);

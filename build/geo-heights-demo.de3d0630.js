@@ -1,6 +1,0 @@
-parcelRequire=function(e,r,n){var t="function"==typeof parcelRequire&&parcelRequire,i="function"==typeof require&&require;function u(n,o){if(!r[n]){if(!e[n]){var f="function"==typeof parcelRequire&&parcelRequire;if(!o&&f)return f(n,!0);if(t)return t(n,!0);if(i&&"string"==typeof n)return i(n);var c=new Error("Cannot find module '"+n+"'");throw c.code="MODULE_NOT_FOUND",c}a.resolve=function(r){return e[n][1][r]||r};var l=r[n]=new u.Module(n);e[n][0].call(l.exports,a,l,l.exports)}return r[n].exports;function a(e){return u(a.resolve(e))}}u.isParcelRequire=!0,u.Module=function(e){this.id=e,this.bundle=u,this.exports={}},u.modules=e,u.cache=r,u.parent=t;for(var o=0;o<n.length;o++)u(n[o]);return u}({4:[function(require,module,exports) {
-var o=new L.Map("map");o.setView([55.87835875564509,37.7050219952363],16,!1),new L.TileLayer("http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga",{maxZoom:18,maxNativeZoom:20}).addTo(o);var e=new OSMBuildings(o).load();e.style({color:"#deebf4",roofColor:"#828886",shadows:!0});
-},{}],3:[function(require,module,exports) {
-"use strict";require("./map"),console.log("Hell world!");
-},{"./map":4}]},{},[3])
-//# sourceMappingURL=geo-heights-demo.de3d0630.map
