@@ -1,4 +1,4 @@
-
+'use strict';
 var google = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga', { id: 1 }),
     osm = L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', { id: 2 }),
     map = new L.Map('map', {
@@ -29,31 +29,15 @@ var featureGroup = new L.FeatureGroup().addTo(map),
             circlemarker: false,
         },
         edit: false
-    })
-drawControlRemove = new L.Control.Draw({
-    draw: false,
-    edit: {
-        edit: false,
-        featureGroup
-    }
-});
-
+    }),
+    drawControlRemove = new L.Control.Draw({
+        draw: false,
+        edit: {
+            edit: false,
+            featureGroup
+        }
+    });
 map.addControl(drawControl);
-
-map.on(L.Draw.Event.CREATED, function (event) {
-    var layer = event.layer;
-    featureGroup.addLayer(layer);
-    drawControl.remove();
-    drawControlRemove.addTo(map);
-});
-
-map.on(L.Draw.Event.DELETED, function (event) {
-    var layers = event.layers;
-    if (layers && layers.getLayers().length > 0) {
-        drawControlRemove.remove();
-        drawControl.addTo(map);
-    }
-});
 
 var osmb = new OSMBuildings(map);
 osmb.style({
@@ -64,3 +48,6 @@ osmb.style({
 
 exports.map = map;
 exports.osmb = osmb;
+exports.featureGroup = featureGroup;
+exports.drawControl = drawControl;
+exports.drawControlRemove = drawControlRemove;
