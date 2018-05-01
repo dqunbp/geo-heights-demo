@@ -48,8 +48,11 @@ map.on(L.Draw.Event.CREATED, function (event) {
 });
 
 map.on(L.Draw.Event.DELETED, function (event) {
-    drawControlRemove.remove();
-    drawControl.addTo(map);
+    var layers = event.layers;
+    if (layers && layers.getLayers().length > 0) {
+        drawControlRemove.remove();
+        drawControl.addTo(map);
+    }
 });
 
 var osmb = new OSMBuildings(map);
