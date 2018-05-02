@@ -16,13 +16,13 @@ L.control.layers(baseLayers, undefined, { position: 'topright', collapsed: false
 var featureGroup = new L.FeatureGroup().addTo(map),
     drawControl = new L.Control.Draw({
         draw: {
-            polygon: {
+            polygon: false,
+            rectangle: {
                 icon: new L.DivIcon({
                     iconSize: new L.Point(7, 7),
                     className: 'point'
                 })
             },
-            rectangle: false,
             polyline: false,
             circle: false,
             marker: false,

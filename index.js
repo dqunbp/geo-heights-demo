@@ -55,7 +55,9 @@ osmb.each(function (feature) {
             }
         });
     };
-})
+});
+
+let currentlLayer
 
 map.on(L.Draw.Event.CREATED, function (event) {
     var layer = event.layer;
@@ -75,15 +77,11 @@ map.on(L.Draw.Event.CREATED, function (event) {
 
 
     L.Util.setOptions(layer, { interactive: true, fill: false });
+
+    if (currentlLayer) {
+        featureGroup.removeLayer(currentlLayer);
+    };
+
     featureGroup.addLayer(layer);
-    drawControl.remove();
-    drawControlRemove.addTo(map);
-});
-map.on(L.Draw.Event.DELETED, function (event) {
-    var layers = event.layers;
-    osmb.set();
-    if (layers && layers.getLayers().length > 0) {
-        drawControlRemove.remove();
-        drawControl.addTo(map);
-    }
+    currentlLayer = layer;
 });
