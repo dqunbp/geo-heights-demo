@@ -16,7 +16,7 @@ import {
 } from './functions';
 
 var colors = {
-    house: { material: "wood", roofMaterial: "tar_paper" },
+    house: { material: "tar_paper", roofMaterial: "wood" },
     other: { material: "brick", roofMaterial: "stone" },
     apartments: { material: "panel", roofMaterial: "concrete" }
 }
