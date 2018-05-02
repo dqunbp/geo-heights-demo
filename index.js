@@ -8,20 +8,21 @@ import {
     drawControl,
     drawControlRemove
 } from './map';
-// import { osmb } from './map';
 import {
     findFeatureById,
     polygonsWithInPolygon,
     featuresListToCollection
 } from './functions';
 
+var colors = {
+    house: { material: "цщщв", roofMaterial: "tar_paper" },
+    other: { material: "brick", roofMaterial: "stone" },
+    apartments: { material: "panel", roofMaterial: "concrete" }
+}
+
 const fs = require('fs');
 var rawdata = fs.readFileSync('./data/mytishi.geojson', 'utf8'),
     mytishi = JSON.parse(rawdata);
-
-// osmb.set(
-//     featuresListToCollection(mytishi)
-// );
 
 var setWithInBuildings = function (polygon) {
 
@@ -31,13 +32,28 @@ osmb.click(function (e) {
     console.log(e);
     var json = findFeatureById(mytishi, e.feature);
     var content = '<b>FEATURE ID ' + e.feature + '</b>';
-    content += '<br><em>Height</em> ' + json.properties.height;
+    content += '<br><em>Type</em> ' + json.properties.type;
+    content += '<br><em>Height</em> ' + json.properties.building_height;
     content += '<br><em>IOU</em> ' + json.properties.iou;
     L.popup({ maxHeight: 200, autoPanPaddingTopLeft: [50, 50] })
         .setLatLng(L.latLng(e.lat, e.lon))
         .setContent(content)
         .openOn(map);
 });
+
+osmb.each(function (feature) {
+    let { type, building_height: height } = feature.properties;
+    if (type) {
+        let { material, roofMaterial } = colors[type];
+        Object.assign(feature, {
+            properties: {
+                height,
+                material,
+                roofMaterial
+            }
+        });
+    };
+})
 
 map.on(L.Draw.Event.CREATED, function (event) {
     var layer = event.layer;
