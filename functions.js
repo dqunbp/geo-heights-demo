@@ -18,3 +18,19 @@ exports.polygonsWithInPolygon = (polygons, withInPolygon) => (
 exports.findFeatureById = (features, id) => (
     features.find(feature => feature.id === id)
 )
+
+exports.setMapBounds = (map, featureCollection) => {
+    var bbox = turf.bbox(featureCollection);
+    var bboxPolygon = turf.bboxPolygon(bbox);
+    var leafletPolygon = L.geoJSON(bboxPolygon, {
+        onEachFeature(feature, layer) {
+            L.Util.setOptions(layer, { 
+                interactive: true,
+                fill: false,
+                color: "#ffffff"
+            });
+        }
+    })
+    map.fitBounds(leafletPolygon.getBounds());
+    leafletPolygon.addTo(map);
+}
