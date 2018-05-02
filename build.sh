@@ -1,2 +1,2 @@
 rm -rf build
-parcel build index.html -d build --public-url ./
+parcel build index.html -d build --public-url ./ --no-cache
