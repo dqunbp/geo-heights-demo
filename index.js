@@ -9,13 +9,14 @@ import {
     drawControlRemove
 } from './map';
 import {
+    setMapBounds,
     findFeatureById,
     polygonsWithInPolygon,
     featuresListToCollection
 } from './functions';
 
 var colors = {
-    house: { material: "цщщв", roofMaterial: "tar_paper" },
+    house: { material: "wood", roofMaterial: "tar_paper" },
     other: { material: "brick", roofMaterial: "stone" },
     apartments: { material: "panel", roofMaterial: "concrete" }
 }
@@ -24,9 +25,10 @@ const fs = require('fs');
 var rawdata = fs.readFileSync('./data/mytishi.geojson', 'utf8'),
     mytishi = JSON.parse(rawdata);
 
-var setWithInBuildings = function (polygon) {
-
-}
+setMapBounds(
+    map,
+    featuresListToCollection(mytishi)
+)
 
 osmb.click(function (e) {
     console.log(e);
@@ -43,7 +45,7 @@ osmb.click(function (e) {
 
 osmb.each(function (feature) {
     let { type, building_height: height } = feature.properties;
-    if (type) {
+    if (type && colors[type]) {
         let { material, roofMaterial } = colors[type];
         Object.assign(feature, {
             properties: {
