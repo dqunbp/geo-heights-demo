@@ -1,3 +1,6 @@
+jq
+raw_data/
+
 #Parcel
 .cache
 dist/
